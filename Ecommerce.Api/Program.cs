@@ -1,3 +1,4 @@
+using Ecommerce.Infrastracture;
 using Ecommerce.Infrastracture.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +18,8 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("TestConnection")));
 
 
-
+//Add dependency injections
+builder.Services.AddInfrastractureDependencies();
 
 
 var app = builder.Build();
