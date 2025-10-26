@@ -10,6 +10,7 @@ namespace Ecommerce.Infrastracture.Interface
     public interface IUnitOfWork : IDisposable
     {
         public IProductRepository ProductRepository { get; }
+        public ICategoryRepository CategoryRepository { get; }
         public ICartItemRepository cartItemRepository { get; }
         public Task<int> SaveChangesAsync();
     }

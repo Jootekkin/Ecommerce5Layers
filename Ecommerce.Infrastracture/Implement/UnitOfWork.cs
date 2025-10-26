@@ -20,6 +20,8 @@ namespace Ecommerce.Infrastracture.Implement
 
         public IProductRepository ProductRepository => new ProductRepository(_context);
 
+        public ICategoryRepository CategoryRepository => new CategoryRepository(_context);
+
         public ICartItemRepository cartItemRepository => new CartItemRepository(_context);
 
         public Task<int> SaveChangesAsync()
@@ -31,5 +33,7 @@ namespace Ecommerce.Infrastracture.Implement
         {
             _context.Dispose();
         }
+
+       
     }
 }
