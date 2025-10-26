@@ -1,5 +1,6 @@
 using Ecommerce.Infrastracture;
 using Ecommerce.Infrastracture.Data;
+using Ecommerce.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,11 +16,13 @@ builder.Services.AddSwaggerGen();
 
 //Add Connection String
 builder.Services.AddDbContext<ApplicationContext>(options =>
-    options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("TestConnection")));
+    options.UseLazyLoadingProxies()
+           .UseSqlServer(builder.Configuration.GetConnectionString("TestConnection")));
 
 
 //Add dependency injections
-builder.Services.AddInfrastractureDependencies();
+builder.Services.AddInfrastractureDependencies()
+                .AddServiceDependencies();
 
 
 var app = builder.Build();
