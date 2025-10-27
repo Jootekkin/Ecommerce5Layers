@@ -22,7 +22,8 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 
 //Add dependency injections
 builder.Services.AddInfrastractureDependencies()
-                .AddServiceDependencies();
+                .AddServiceDependencies()
+                .AddCoreDependencies();
 
 
 var app = builder.Build();
