@@ -1,3 +1,4 @@
+using Ecommerce.Core;
 using Ecommerce.Infrastracture;
 using Ecommerce.Infrastracture.Data;
 using Ecommerce.Service;

@@ -1,4 +1,5 @@
-﻿using Ecommerce.Core.Product.Queries.Results;
+﻿using Ecommerce.Core.Bases;
+using Ecommerce.Core.Product.Queries.Results;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Core.Product.Queries.Models
 {
-    public class GetAllProductsQuery : IRequest<IReadOnlyList<GetAllProductsResponse>>
+    public class GetAllProductsQuery : IRequest<BaseResponse<IReadOnlyList<GetAllProductsResponse>>>
     {
     }
 }
