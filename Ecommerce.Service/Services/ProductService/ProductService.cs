@@ -12,6 +12,7 @@ namespace Ecommerce.Service.Services.ProductService
     public interface IProductService
     {
         Task<IReadOnlyList<Product>> GetAllProductsAsync();
+        Task<Product> GetProductByIdAsync(Guid productId);
     }
     #endregion
 
@@ -33,6 +34,11 @@ namespace Ecommerce.Service.Services.ProductService
         public async Task<IReadOnlyList<Product>> GetAllProductsAsync()
         {
             return await _unitOfWork.ProductRepository.GetAllAsync();
+        }
+
+        public async Task<Product> GetProductByIdAsync(Guid productId)
+        {
+            return await _unitOfWork.ProductRepository.GetByIdAsync(productId);
         }
         #endregion
     }
