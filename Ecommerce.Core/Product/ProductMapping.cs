@@ -11,10 +11,13 @@ namespace Ecommerce.Core.Mapping
     {
         public void ConfigureProductMapping()
         {
-            CreateMap<Ecommerce.Domain.Models.Product, GetProductByIdResponse>()
+            CreateMap<Ecommerce.Domain.Models.Product, GetAllProductsResponse>()
                     .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
                     .ForMember(dest => dest.Stock, opt => opt.MapFrom(src => src.StockQuantity));
 
+            CreateMap<Ecommerce.Domain.Models.Product, GetProductByIdResponse>()
+                    .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+                    .ForMember(dest => dest.Stock, opt => opt.MapFrom(src => src.StockQuantity));
 
         }
         
