@@ -13,11 +13,11 @@ namespace Ecommerce.Domain.Routing
 
         public static class Products
         {
-            public const string GetAllProducts = Base + Version + "products";
-            public const string GetProductById = Base + Version + "products/{id}";
-            public const string CreateProduct = Base + Version + "products";
-            public const string UpdateProduct = Base + Version + "products/{id}";
-            public const string DeleteProduct = Base + Version + "products/{id}";
+            public const string GetAllProducts = Base + Version + "Products";
+            public const string GetProductById = Base + Version + "Products/Product/{id}";
+            public const string CreateProduct  = Base + Version + "Products/CreateProduct";
+            public const string UpdateProduct  = Base + Version + "Products/UpdateProduct";
+            public const string DeleteProduct  = Base + Version + "Products/DeleteProduct/{id}";
         }
     }
 }
