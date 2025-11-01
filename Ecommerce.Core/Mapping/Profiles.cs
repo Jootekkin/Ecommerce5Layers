@@ -13,7 +13,7 @@ namespace Ecommerce.Core.Mapping
     {
         public Profiles()
         {
-            ConfigureProductMapping();
+            ConfigureProductQueryMapping();
         }
     }
 }
