@@ -14,6 +14,7 @@ namespace Ecommerce.Core.Mapping
         public Profiles()
         {
             ConfigureProductQueryMapping();
+            ConfigureProductCommandMapping();
         }
     }
 }
