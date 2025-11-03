@@ -13,6 +13,7 @@ namespace Ecommerce.Service.Services.ProductService
     {
         Task<IReadOnlyList<Product>> GetAllProductsAsync();
         Task<Product> GetProductByIdAsync(Guid productId);
+        Task<Product> CreateProductAsync(Product product);
     }
     #endregion
 
@@ -39,6 +40,20 @@ namespace Ecommerce.Service.Services.ProductService
         public async Task<Product> GetProductByIdAsync(Guid productId)
         {
             return await _unitOfWork.ProductRepository.GetByIdAsync(productId);
+        }
+
+        public async Task<Product> CreateProductAsync(Product product)
+        {
+            try
+            {
+                await _unitOfWork.ProductRepository.AddAsync(product);
+                await _unitOfWork.SaveChangesAsync();
+            }catch(Exception ex)
+            {
+                throw new Exception($"Error adding new product => {ex.Message}");
+            }
+
+            return product;
         }
         #endregion
     }
