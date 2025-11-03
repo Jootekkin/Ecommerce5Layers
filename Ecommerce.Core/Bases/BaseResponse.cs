@@ -13,6 +13,7 @@ namespace Ecommerce.Core.Bases
         public bool IsSuccess { get; set; }
         public string Message { get; set; } = string.Empty;
         public HttpStatusCode StatusCode { get; set; }
+        public string StatusMessage { get; set; } = string.Empty;
 
         public BaseResponse()
         {
@@ -24,6 +25,14 @@ namespace Ecommerce.Core.Bases
             IsSuccess = issuccess;
             Message = message;
             StatusCode = statuscode;
+        }
+
+        public BaseResponse(bool issuccess, string message, HttpStatusCode statuscode, string statusMessage)
+        {
+            IsSuccess = issuccess;
+            Message = message;
+            StatusCode = statuscode;
+            StatusMessage = statusMessage;
         }
 
         public BaseResponse(T data, bool issuccess, string message, HttpStatusCode statuscode)

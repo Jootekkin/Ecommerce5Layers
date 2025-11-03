@@ -51,5 +51,10 @@ namespace Ecommerce.Core.Bases
             return new BaseResponse<T>(data, true, message, HttpStatusCode.Created);
         }
 
+        public BaseResponse<T> HandleException<T>(string exceptionMessage, string userMessage = "An error occurred")
+        {
+            // Log the exception message here if needed
+            return new BaseResponse<T>(false, userMessage, HttpStatusCode.InternalServerError, exceptionMessage);
+        }
     }
 }
