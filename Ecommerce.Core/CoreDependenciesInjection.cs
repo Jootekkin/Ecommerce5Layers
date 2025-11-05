@@ -1,13 +1,7 @@
 ﻿using Ecommerce.Core.Mapping;
-using Ecommerce.Core.Product.Queries.Models;
-using Ecommerce.Service.Services.ProductService;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.Core
 {
@@ -17,7 +11,15 @@ namespace Ecommerce.Core
         {
             // Register core services, repositories, etc. here
             services.AddAutoMapper(cfg => cfg.AddProfile(typeof(Profiles)));
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+
+
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+                cfg.AddOpenBehavior(typeof(Behavior.ValidatorBehavior<,>));
+            });
+
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             return services;
         }
     }
