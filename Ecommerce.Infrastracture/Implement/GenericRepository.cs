@@ -1,11 +1,6 @@
 ﻿using Ecommerce.Infrastracture.Data;
 using Ecommerce.Infrastracture.Interface;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.Infrastracture.Implement
 {
@@ -18,7 +13,7 @@ namespace Ecommerce.Infrastracture.Implement
         #endregion
 
         #region Constructor
-        public GenericRepository(ApplicationContext context) 
+        public GenericRepository(ApplicationContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();
@@ -31,14 +26,14 @@ namespace Ecommerce.Infrastracture.Implement
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
 
         public async Task AddAsync(T entity)
         {
-           await _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity);
         }
 
         public void Update(T entity)
@@ -51,9 +46,11 @@ namespace Ecommerce.Infrastracture.Implement
             _dbSet.UpdateRange(entities);
         }
 
-        public void Delete(T entity)
+        public void Delete(Guid Id)
         {
-            _dbSet.Remove(entity);
+            var entity = _dbSet.Find(Id);
+            if (entity != null)
+                _dbSet.Remove(entity);
         }
 
         #endregion

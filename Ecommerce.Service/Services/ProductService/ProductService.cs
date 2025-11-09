@@ -1,10 +1,5 @@
 ﻿using Ecommerce.Domain.Models;
 using Ecommerce.Infrastracture.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.Service.Services.ProductService
 {
@@ -12,8 +7,10 @@ namespace Ecommerce.Service.Services.ProductService
     public interface IProductService
     {
         Task<IReadOnlyList<Product>> GetAllProductsAsync();
-        Task<Product> GetProductByIdAsync(Guid productId);
+        Task<Product?> GetProductByIdAsync(Guid productId);
         Task<Product> CreateProductAsync(Product product);
+        Task<bool> UpdateProductAsync(Product product);
+        Task<bool> DeleteProductAsync(Guid productId);
     }
     #endregion
 
@@ -37,23 +34,34 @@ namespace Ecommerce.Service.Services.ProductService
             return await _unitOfWork.ProductRepository.GetAllAsync();
         }
 
-        public async Task<Product> GetProductByIdAsync(Guid productId)
+        public async Task<Product?> GetProductByIdAsync(Guid productId)
         {
-            return await _unitOfWork.ProductRepository.GetByIdAsync(productId);
+            var product = await _unitOfWork.ProductRepository.GetByIdAsync(productId);
+            if (product != null)
+            {
+                return product;
+            }
+            return null;
         }
 
         public async Task<Product> CreateProductAsync(Product product)
         {
-            try
-            {
-                await _unitOfWork.ProductRepository.AddAsync(product);
-                await _unitOfWork.SaveChangesAsync();
-            }catch(Exception ex)
-            {
-                throw new Exception($"Error adding new product => {ex.Message}");
-            }
 
+            await _unitOfWork.ProductRepository.AddAsync(product);
+            await _unitOfWork.SaveChangesAsync();
             return product;
+        }
+
+        public async Task<bool> UpdateProductAsync(Product product)
+        {
+            _unitOfWork.ProductRepository.Update(product);
+            return await _unitOfWork.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> DeleteProductAsync(Guid productId)
+        {
+            _unitOfWork.ProductRepository.Delete(productId);
+            return await _unitOfWork.SaveChangesAsync() > 0;
         }
         #endregion
     }
