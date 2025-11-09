@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 
 namespace Ecommerce.Core.Bases
 {
@@ -16,32 +11,27 @@ namespace Ecommerce.Core.Bases
             return new BaseResponse<T>(data, true, message, HttpStatusCode.OK);
         }
 
-        public BaseResponse<T> Failed<T>(string message = "Operation Failed", HttpStatusCode statusCode = HttpStatusCode.BadRequest)
+        public BaseResponse<T> Failed<T>(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
         {
             return new BaseResponse<T>(false, message, statusCode);
         }
 
-        public BaseResponse<T> NotFound<T>(string message = "Resource Not Found")
+        public BaseResponse<T> NotFound<T>(string message)
         {
             return new BaseResponse<T>(false, message, HttpStatusCode.NotFound);
         }
 
-        public BaseResponse<T> Unauthorized<T>(string message = "Unauthorized Access")
+        public BaseResponse<T> Unauthorized<T>(string message)
         {
             return new BaseResponse<T>(false, message, HttpStatusCode.Unauthorized);
         }
 
-        public BaseResponse<T> InternalError<T>(string message = "Internal Server Error")
-        {
-            return new BaseResponse<T>(false, message, HttpStatusCode.InternalServerError);
-        }
-
-        public BaseResponse<T> BadRequest<T>(string message = "Bad Request")
+        public BaseResponse<T> BadRequest<T>(string message)
         {
             return new BaseResponse<T>(false, message, HttpStatusCode.BadRequest);
         }
 
-        public BaseResponse<T> Deleted<T>(string message = "Resource Deleted")
+        public BaseResponse<T> Deleted<T>(string message)
         {
             return new BaseResponse<T>(true, message, HttpStatusCode.OK);
         }
@@ -51,10 +41,5 @@ namespace Ecommerce.Core.Bases
             return new BaseResponse<T>(data, true, message, HttpStatusCode.Created);
         }
 
-        public BaseResponse<T> HandleException<T>(string exceptionMessage, string userMessage = "An error occurred")
-        {
-            // Log the exception message here if needed
-            return new BaseResponse<T>(false, userMessage, HttpStatusCode.InternalServerError, exceptionMessage);
-        }
     }
 }

@@ -30,8 +30,8 @@ namespace Ecommerce.Core.Middleware
                 _logger.LogError(ex, "An unhandled exception has occurred while processing the request.");
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
-                var response = new { Message = $"{ex.Message}" };
-                await context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+                var response = ex.Message;
+                await context.Response.WriteAsync(response);
             }
         }
         #endregion
