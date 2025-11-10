@@ -19,8 +19,7 @@ namespace Ecommerce.Core.Product.Commands.Validator
                 .GreaterThan(0).WithMessage("Product price must be greater than zero.");
 
             RuleFor(x => x.StockQuantity)
-                .GreaterThanOrEqualTo(0).WithMessage("Stock quantity cannot be negative.")
-                .IsInEnum().WithMessage("Stock quantity must be a number");
+                .GreaterThanOrEqualTo(0).WithMessage("Stock quantity cannot be negative.");
 
             RuleFor(x => x.CategoryId)
                 .NotEmpty().WithMessage("Category ID is required.");

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ecommerce.Core.DTOs;
 
 namespace Ecommerce.Core.Product.Queries.Results
 {
-    public class GetProductByIdResponse : GetAllProductsResponse
+    public class GetProductByIdResponse : ProductDto
     {
     }
 }

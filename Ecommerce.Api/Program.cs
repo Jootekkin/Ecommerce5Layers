@@ -1,4 +1,5 @@
 using Ecommerce.Core;
+using Ecommerce.Core.Middleware;
 using Ecommerce.Infrastracture;
 using Ecommerce.Infrastracture.Data;
 using Ecommerce.Service;
@@ -38,6 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
+app.UseMiddleware<GlobalExceptionMiddleware>();
 app.MapControllers();
 
 app.Run();

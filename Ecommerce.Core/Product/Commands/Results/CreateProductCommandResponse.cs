@@ -1,8 +1,8 @@
-﻿using Ecommerce.Core.Product.Queries.Results;
+﻿using Ecommerce.Core.DTOs;
 
 namespace Ecommerce.Core.Product.Commands.Results
 {
-    public class CreateProductCommandResponse : GetAllProductsResponse
+    public class CreateProductCommandResponse : ProductDto
     {
 
     }

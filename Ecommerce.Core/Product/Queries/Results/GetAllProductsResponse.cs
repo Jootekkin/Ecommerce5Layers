@@ -1,18 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ecommerce.Core.DTOs;
 
 namespace Ecommerce.Core.Product.Queries.Results
 {
-    public class GetAllProductsResponse
+    public class GetAllProductsResponse : ProductDto
     {
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public decimal Price { get; set; }
-        public int Stock { get; set; }
-        public string? CategoryName { get; set; }
+
     }
 }

@@ -4,16 +4,14 @@ using Ecommerce.Core.Product.Commands.Models;
 using Ecommerce.Core.Product.Commands.Results;
 using Ecommerce.Service.Services.ProductService;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Core.Product.Commands.Handlers
 {
     public class ProductCommandHandler : ResponseHandler,
-                                         IRequestHandler<CreateProductCommand, BaseResponse<CreateProductCommandResponse>>
+                                         IRequestHandler<CreateProductCommand, BaseResponse<CreateProductCommandResponse>>,
+                                         IRequestHandler<UpdateProductCommand, BaseResponse<bool>>,
+                                         IRequestHandler<DeleteProductCommand, BaseResponse<bool>>
     {
 
         #region Fields
@@ -29,22 +27,44 @@ namespace Ecommerce.Core.Product.Commands.Handlers
         }
         #endregion
 
-
         #region Methods
         public async Task<BaseResponse<CreateProductCommandResponse>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             var createdProduct = new Domain.Models.Product();
+
+            var newProduct = mapper.Map<Domain.Models.Product>(request);
+
+            createdProduct = await productService.CreateProductAsync(newProduct);
+
+            //createdProduct.Category = await categoryService.GetCategoryByIdAsync(createdProduct.CategoryId);
+
+            return Success(mapper.Map<CreateProductCommandResponse>(createdProduct), "Product created successfully");
+        }
+
+        public async Task<BaseResponse<bool>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+        {
+            var result = false;
             try
             {
-                var newProduct = mapper.Map<Domain.Models.Product>(request);
-
-                 createdProduct = await productService.CreateProductAsync(newProduct);
+                var updatedProduct = mapper.Map<Domain.Models.Product>(request);
+                result = await productService.UpdateProductAsync(updatedProduct);
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                return HandleException<CreateProductCommandResponse>(ex.Message, "Error creating new product");
+
+                throw new Exception($"Database update product error: {ex.Message} ");
             }
-            return Success(mapper.Map<CreateProductCommandResponse>(createdProduct), "Product created successfully");
+            return result
+                ? Success(true, "Product updated successfully")
+                : Failed<bool>("Failed to update product");
+        }
+
+        public async Task<BaseResponse<bool>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+        {
+            var result = await productService.DeleteProductAsync(request.ProductId);
+            return result
+                ? Success(true, "Product deleted successfully")
+                : Failed<bool>("Failed to delete product");
         }
 
 
